@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="userDao"
+          class="com.kaishengit.dao.UserDao"
+          init-method="init"
+          destroy-method="destroy"
+          lazy-init="true"
+    />
+
+          <!--scope="singleton"-->
+    <alias name="userDao" alias="userDao2"/>
+
+    <bean id="deptDao" class="com.kaishengit.dao.DeptDao"/>
+
+    <!--<bean id="userService" class="com.kaishengit.service.UserService"-->
+          <!--p:deptDao-ref="deptDao" p:userDao-ref="userDao"-->
+    <!--/>-->
+    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
+        <!--<constructor-arg name="deptDao" ref="deptDao"/>-->
+        <!--<constructor-arg name="userDao" ref="userDao"/>-->
+        <!--<constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/>-->
+        <!--<constructor-arg type="com.kaishengit.dao.DeptDao" ref="deptDao"/>-->
+        <!--<property name="userDaoxx">-->
+            <!--<ref bean="userDao"/>-->
+        <!--</property>-->
+        <!--<property name="deptDao" ref="deptDao"/>-->
+    <!--</bean>-->
+  <bean id="userService" class="com.kaishengit.service.UserService">
+      <constructor-arg name="userDao1" ref="userDao"/>
+      <constructor-arg name="deptDao1" ref="deptDao"/>
+
+  </bean>
+<!--<bean id="userService" class="com.kaishengit.service.UserService" autowire="constructor"/>-->
+  <bean id="diDemo" class="com.kaishengit.service.DiDemo">
+      <property name="score" value="3.14159"/>
+      <property name="name" value="namebyxml"/>
+      <property name="nameList" >
+          <list>
+              <value>a-xml</value>
+              <value>b-xml</value>
+              <value>c-xml</value>
+          </list>
+      </property>
+      <property name="nameSet">
+          <set>
+              <value>s1-xml</value>
+              <value>s2-xml</value>
+              <value>s3-xml</value>
+          </set>
+      </property>
+      <property name="userMap">
+          <map>
+              <entry key="m1" value-ref="userDao"/>
+              <entry key="m2" value-ref="userDao"/>
+          </map>
+      </property>
+      <property name="properties">
+          <props>
+              <prop key="pr1">p-v1</prop>
+              <prop key="pr2">p-v2</prop>
+          </props>
+      </property>
+  </bean>
+
+</beans>
